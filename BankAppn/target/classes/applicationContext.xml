@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+
+ <bean  id="address" class="com.test.springBank.BankAppn.Address" scope="prototype">
+ <!-- <property name="street" value="Shankar nagar"></property>
+ <property name="city" value="Indore"></property>
+ <property name="zipCode" value="76564"></property> -->
+ </bean>
+ 
+<!--  <bean  id="address1" class="com.test.springBank.BankAppn.Address">
+ <property name="street" value="Khadakpada"></property>
+ <property name="city" value="Kalyan"></property>
+ <property name="zipCode" value="34566"></property>
+ </bean>
+ 
+ <bean  id="address2" class="com.test.springBank.BankAppn.Address">
+ <property name="street" value="MarketYard"></property>
+ <property name="city" value="Pune"></property>
+ <property name="zipCode" value="785654"></property>
+ </bean>  -->
+  
+<bean id="save" class="com.test.springBank.BankAppn.SavingAccount" scope="prototype">  
+<!-- <constructor-arg value="1" type="int"></constructor-arg>  
+<constructor-arg value="2000"></constructor-arg>   -->
+</bean> 
+
+<!-- <bean id="save1" class="com.test.springBank.BankAppn.SavingAccount">  
+<constructor-arg value="2" type="int"></constructor-arg>  
+<constructor-arg value="7000"></constructor-arg>  
+</bean>
+
+<bean id="save2" class="com.test.springBank.BankAppn.SavingAccount">  
+<constructor-arg value="3" type="int"></constructor-arg>  
+<constructor-arg value="6000"></constructor-arg>  
+</bean> -->
+
+<bean id="cust" class="com.test.springBank.BankAppn.Customer">  
+	<!-- <property name="fName">
+		<list>
+			<value>Rashmi</value>
+			<value>Ruchita</value>
+			<value>Rohan</value>
+		</list>
+	</property>
+	<property name="lName">
+		<list>
+			<value>Jaiswal</value>
+			<value>Kamble</value>
+			<value>Joshi</value>
+		</list>
+	</property>
+	<property name="mobileNumber">
+		<list>
+			<value>9876764</value>
+			<value>876544</value>
+			<value>789064</value>
+		</list>
+	</property>
+	<property name="email">
+		<list>
+			<value>rashmi@gmail.com</value>
+			<value>ruchita@gmail.com</value>
+			<value>rohan@gmail.com</value>
+		</list>
+	</property> 
+	<property name="address">
+		<list>
+			<ref bean="address"/>
+			<ref bean="address1"/>
+			<ref bean="address2"/>
+		</list>
+	</property> 
+	<property name="saving">
+		<list>
+			<ref bean="save"/>
+			<ref bean="save1"/>
+			<ref bean="save2"/>
+		</list>
+	</property>  -->
+</bean>   
+  
+</beans>  
