@@ -12,11 +12,12 @@ import com.test.service.AccountServiceImpl;
 import com.test.service.CustomerServiceImplementation;
 
 
-public class MyController 
-{
+public class MyController {
 
+	/*---Application context object---*/
 	static ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	 
+	
 	static Customer customer = (Customer) context.getBean("customers");
 	
 	static CustomerServiceImplementation serviceImplementation = (CustomerServiceImplementation) context.getBean("customerService");
@@ -74,13 +75,16 @@ public class MyController
 				//delete customer
 			case 3:
 				System.out.println("Enter Id");
-				int idDelete = sc.nextInt();
-				Account accountDelete = accountSeviceImpl.findById(idDelete);
+				final int idDelete = sc.nextInt();
+				final Account accountDelete = accountSeviceImpl.findById(idDelete);
 				if(accountDelete != null)
+				{
 					serviceImplementation.deleteCustomer(1);
+				}
 				else
+				{
 					throw new BankException("Invalid Id");
-				
+				}
 				break;
 				
 				//display customer
@@ -98,32 +102,33 @@ public class MyController
 			case 6:
 				//deposit amount
 				System.out.println("Enter the id");
-				int idDeposit = sc.nextInt();
+				final int idDeposit = sc.nextInt();
 				
-				Account accountDeposit = accountSeviceImpl.findById(idDeposit);   //validating
+				final Account accountDeposit = accountSeviceImpl.findById(idDeposit);   //validating
 				
 				if(accountDeposit != null)
 				{
 					System.out.println("Enter the amount");
-					double balance = sc.nextDouble();
+					final double balance = sc.nextDouble();
 					accountSeviceImpl.depositAmount(balance, accountDeposit);
 				}
 				else
+				{
 					throw new BankException("Invalid Id");
-				
+				}
 				break;
 				
 			case 7:
 				//withdraw amount
 				System.out.println("Enter the id");
-				int idWithdraw = sc.nextInt();
+				final int idWithdraw = sc.nextInt();
 				
-				Account accountWithdraw = accountSeviceImpl.findById(idWithdraw);  //validating
+				final Account accountWithdraw = accountSeviceImpl.findById(idWithdraw);  //validating
 				
 				if(accountWithdraw != null)
 				{
 					System.out.println("Enter the amount");
-					double balance = sc.nextDouble();
+					final double balance = sc.nextDouble();
 					accountSeviceImpl.depositAmount(balance, accountWithdraw);
 				}
 				else

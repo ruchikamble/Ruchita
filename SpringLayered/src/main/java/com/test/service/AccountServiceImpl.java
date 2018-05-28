@@ -18,8 +18,7 @@ public class AccountServiceImpl implements AccountService
 	}
 
 	public int deleteAccount(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.savingAccount.deleteAccount(id);
 	}
 
 	public Account findById(int id) 

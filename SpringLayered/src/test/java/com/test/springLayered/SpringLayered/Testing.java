@@ -10,7 +10,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.test.dao.CustomerDaoImplementation;
+import com.test.pojo.Account;
 import com.test.pojo.Customer;
+import com.test.service.AccountServiceImpl;
 import com.test.service.CustomerServiceImplementation;
 
 public class Testing 
@@ -20,6 +22,8 @@ public class Testing
 	Customer customer = (Customer) context.getBean("customers");
 	Customer cust = (Customer) context.getBean("customers");
 	CustomerDaoImplementation custDao = (CustomerDaoImplementation) context.getBean("customerDao");
+	AccountServiceImpl accountSeviceImpl = (AccountServiceImpl) context.getBean("accountService");
+	Account account = (Account) context.getBean("account");
 	
 	@Test
 	public void testCreateCustomer() throws Exception
@@ -36,7 +40,7 @@ public class Testing
 		List<Customer> customers = custDao.showAllCustomers();
 		
 		assertEquals(1, status);
-		assertEquals(customer.getfName(), customers.get(0).getfName());
+		assertEquals(customer.getfName(), customers.get(1).getfName());
 	}
 	
 	@Test
@@ -50,17 +54,41 @@ public class Testing
 	public void testShowAllCustomers() throws Exception 
 	{
 		List<Customer> list = service.showAllCustomers();
-		assertEquals(1,list.size());
+		assertEquals(3,list.size());
 	}
 	
 	@Test
-	public void testUpdateCustomers()
+	public void testUpdateCustomers() throws Exception
 	{
 		
-		int status = service.updateCustomer(1,"jaiswal@gmail.com" );
+		service.updateCustomer(3,"jaiswal@gmail.com" );
 		
+		List<Customer> customers = custDao.showAllCustomers();
 		
-		assertEquals("jaiswal@gmail.com", );
+		assertEquals("jaiswal@gmail.com", customers.get(0).getEmail());
+	}
+	
+	@Test
+	public void testFindById()
+	{
+		Account acc = accountSeviceImpl.findById(2);
+		assertEquals(2000.0, acc.getBalance());
+	}
+	
+	@Test
+	public void testCreateAccount()
+	{
+		account.setAccountId(3);
+		account.setBalance(2000);
+		int status = accountSeviceImpl.createAccount(account);
+		assertEquals(1, status);
+	}
+	
+	@Test
+	public void testDeleteAccount()
+	{
+		int status = accountSeviceImpl.deleteAccount(2);
+		assertEquals(2, status);
 	}
 	
 }
