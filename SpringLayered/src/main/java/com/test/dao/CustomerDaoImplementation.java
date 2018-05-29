@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.test.exception.BankException;
 import com.test.mapper.CustomerMapper;
 import com.test.pojo.Customer;
 
@@ -30,7 +31,7 @@ public class CustomerDaoImplementation implements CustomerDaoInterface
 	
 	
 	//create customer method
-	public int createCustomer(Customer customer) throws SQLException
+	public int createCustomer(Customer customer) throws BankException
 	{
 		
 		String SQL = "insert into Customer  values (?,?,?,?,?,?)";  //insert query for create customer
@@ -42,7 +43,7 @@ public class CustomerDaoImplementation implements CustomerDaoInterface
 	}
 
 	//delete customer method
-	public int deleteCustomer(int id) throws SQLException
+	public int deleteCustomer(int id) throws BankException
 	{
 		String SQL = "delete from Customer where customerId = ?";        //delete query
 		return jdbcTemplate.update(SQL,id);
@@ -50,7 +51,7 @@ public class CustomerDaoImplementation implements CustomerDaoInterface
 	}
 
 	//update customer
-	public int updateCustomer(int id, String email) throws SQLException 
+	public int updateCustomer(int id, String email) throws BankException 
 	{
 		String SQL = "update Customer set email = ? where customerId = ?";     //update query
 		return jdbcTemplate.update(SQL, email, id);
@@ -59,7 +60,7 @@ public class CustomerDaoImplementation implements CustomerDaoInterface
 
 	
 	//method to list all customers
-	public List<Customer> showAllCustomers() throws Exception
+	public List<Customer> showAllCustomers()
 	{
 		return jdbcTemplate.query("select * from Customer", new CustomerMapper());  //select query
 	}

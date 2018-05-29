@@ -1,6 +1,8 @@
 package com.test.controller;
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,6 +15,8 @@ import com.test.service.CustomerServiceImplementation;
 
 
 public class MyController {
+	
+	static Logger logger = Logger.getLogger("MyController");
 
 	/*---Application context object---*/
 	static ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -31,13 +35,14 @@ public class MyController {
 	static Scanner sc = new Scanner(System.in);
 	
 	
-	public static void main(String[] args) throws Exception
+	public static void main(String[] args) throws BankException
 	{
 		
 		int choice;
 		
 		do
 		{
+			logger.log(Level.INFO, "----MENU----");
 			System.out.println("1. Create Customer");
 			System.out.println("2. Update Customer");
 			System.out.println("3. Delete Customer");
@@ -116,7 +121,7 @@ public class MyController {
 				}
 				else
 				{
-					throw new BankException("Invalid Id");
+					throw new BankException("Invalid Id");  //custom exception
 				}
 				break;
 				
@@ -135,7 +140,7 @@ public class MyController {
 				}
 				else
 				{
-					throw new BankException("Invalid Id");
+					throw new BankException("Invalid Id");    //custom exception
 				}
 				break;
 				

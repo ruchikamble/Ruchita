@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.test.dao.CustomerDaoImplementation;
+import com.test.exception.BankException;
 import com.test.pojo.Account;
 import com.test.pojo.Customer;
 import com.test.service.AccountServiceImpl;
@@ -50,14 +51,14 @@ public class Testing
 	}
 	
 	@Test
-	public void testDeleteCustomer() throws SQLException
+	public void testDeleteCustomer() throws BankException
 	{
 		int status = service.deleteCustomer(1);
 		assertEquals(1, status);
 	}
 	
 	@Test
-	public void testShowAllCustomers() throws Exception 
+	public void testShowAllCustomers()  
 	{
 		List<Customer> list = service.showAllCustomers();
 		assertEquals(3,list.size());

@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.test.controller.MyController;
 import com.test.dao.CustomerDaoImplementation;
+import com.test.exception.BankException;
 import com.test.pojo.Customer;
 
 /**---Customer service Layer--**/
@@ -39,26 +40,26 @@ public class CustomerServiceImplementation  implements CustomerServiceInterface
 	}*/
 
 	/**---create customer method--**/
-	public int createCustomer(final Customer customer) throws SQLException 
+	public int createCustomer(final Customer customer) throws BankException 
 	{
 		 return this.customerDao.createCustomer(customer);
 		
 	}
 
 	/**---delete customer method---**/
-	public int deleteCustomer(final int id) throws SQLException 
+	public int deleteCustomer(final int id) throws BankException 
 	{
 		return this.customerDao.deleteCustomer(id);
 	}
 
 	/**---update customer method---**/
-	public int updateCustomer(final int id, final String email) throws SQLException 
+	public int updateCustomer(final int id, final String email) throws BankException 
 	{
 		return this.customerDao.updateCustomer(id, email);
 	}
 
 	/**---show all customer method---**/
-	public List<Customer> showAllCustomers() throws Exception 
+	public List<Customer> showAllCustomers() 
 	{
 		final List<Customer> list = this.customerDao.showAllCustomers();
 		System.out.println(list);
