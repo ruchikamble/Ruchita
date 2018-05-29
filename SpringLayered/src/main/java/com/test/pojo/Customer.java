@@ -11,6 +11,14 @@ public class Customer
 	
 	public Customer() { }
 
+	/**
+	 * @param customerId
+	 * @param addressId
+	 * @param accountId
+	 * @param fName
+	 * @param lName
+	 * @param email
+	 */
 	public Customer(int customerId, int addressId, int accountId, String fName, String lName,
 			String email) {
 		super();
@@ -22,6 +30,9 @@ public class Customer
 		this.email = email;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -42,6 +53,9 @@ public class Customer
 		return accountId;
 	}
 
+	/**
+	 * @param accountId
+	 */
 	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}

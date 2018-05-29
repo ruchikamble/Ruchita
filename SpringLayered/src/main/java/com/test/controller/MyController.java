@@ -17,11 +17,13 @@ public class MyController {
 	/*---Application context object---*/
 	static ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 	 
-	
+	/*---Customer pojo object---*/
 	static Customer customer = (Customer) context.getBean("customers");
 	
+	/*---CustomerServiceImplementation object---*/
 	static CustomerServiceImplementation serviceImplementation = (CustomerServiceImplementation) context.getBean("customerService");
 	
+	/*---AccountServiceImplementation object---*/
 	static AccountServiceImpl accountSeviceImpl = (AccountServiceImpl) context.getBean("accountService");
 	
 	static Account account = (Account) context.getBean("account");
@@ -129,7 +131,7 @@ public class MyController {
 				{
 					System.out.println("Enter the amount");
 					final double balance = sc.nextDouble();
-					accountSeviceImpl.depositAmount(balance, accountWithdraw);
+					accountSeviceImpl.withdrawAmount(balance, accountWithdraw);
 				}
 				else
 				{

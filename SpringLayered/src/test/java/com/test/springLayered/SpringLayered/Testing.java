@@ -18,11 +18,17 @@ import com.test.service.CustomerServiceImplementation;
 public class Testing 
 {
 	ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+	
 	CustomerServiceImplementation service = (CustomerServiceImplementation) context.getBean("customerService");
+	
 	Customer customer = (Customer) context.getBean("customers");
+	
 	Customer cust = (Customer) context.getBean("customers");
+	
 	CustomerDaoImplementation custDao = (CustomerDaoImplementation) context.getBean("customerDao");
+	
 	AccountServiceImpl accountSeviceImpl = (AccountServiceImpl) context.getBean("accountService");
+	
 	Account account = (Account) context.getBean("account");
 	
 	@Test
