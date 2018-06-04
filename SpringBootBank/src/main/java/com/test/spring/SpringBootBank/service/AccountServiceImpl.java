@@ -1,7 +1,11 @@
 package com.test.spring.SpringBootBank.service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +14,13 @@ import com.test.spring.SpringBootBank.exception.BankException;
 import com.test.spring.SpringBootBank.pojo.Account;
 import com.test.spring.SpringBootBank.pojo.Bank;
 import com.test.spring.SpringBootBank.pojo.Customer;
+import com.test.spring.SpringBootBank.pojo.Transaction;
 import com.test.spring.SpringBootBank.wrapper.AccountBankCustWrapper;
 
 @Service
 public class AccountServiceImpl implements IAccountService
 {
+	Logger logger = LoggerFactory.getLogger(AccountServiceImpl.class);
 	@Autowired
 	private IAccountDao accountDao;
 	
@@ -26,6 +32,11 @@ public class AccountServiceImpl implements IAccountService
 	
 	@Autowired
 	private ICustomerService custService;
+	
+	@Autowired
+	private ITransactionService transactionService;
+	
+	private Scanner sc = new Scanner(System.in);
 	
 	
 	@Override
@@ -50,10 +61,11 @@ public class AccountServiceImpl implements IAccountService
 	
 	
 	@Override
-	public double depositAmount(long accId, double amount) throws BankException 
+	public String depositAmount(long accId) throws BankException 
 	{
 		Account account = null;
-		double amt = 0;
+		Transaction transaction = new Transaction();
+
 		account = accountService.getAccount(accId);
 		if(account == null)
 		{
@@ -61,22 +73,39 @@ public class AccountServiceImpl implements IAccountService
 		}
 		else
 		{
-			amt = account.getAmount() + amount;
-			account.setAmount(amt);
-			accountDao.save(account);
+			System.out.println("Enter amount");
+			BigDecimal amount = sc.nextBigDecimal();
 			Bank bank = account.getBank();
-			double bankAmt = bank.getAmount() + amount;
-			bank.setAmount(bankAmt);
-			bankService.updateAmount(bank);
+			if(amount.compareTo(BigDecimal.ZERO) > 0)
+			{
+					account.setAmount(account.getAmount().add(amount));
+					bank.setAmount(bank.getAmount().subtract(amount));
+					bankService.updateAmount(bank);
+					accountDao.save(account);
+					transaction.setAccount(account);
+					transaction.setCustomer(account.getCustomer());
+					transaction.setAmount(amount);
+					transaction.setTransactionType("Credited");
+					transactionService.createTransaction(transaction);
+					logger.info("amount is deposited successfully");
+					return "amount is deposited";
+				}
+				
+			else
+			{
+				logger.error("Invalid amount");
+				throw new BankException("Invalid amount requested");
+			}
+			
 		}
 		
-		return amt;
+		
 	}
 
 	@Override
-	public double withdrawAmount(long accId, double amount) throws BankException {
+	public String withdrawAmount(long accId) throws BankException {
 		Account account = null;
-		double amt = 0;
+		Transaction transaction = new Transaction();
 		account = accountService.getAccount(accId);
 		if(account == null)
 		{
@@ -84,16 +113,38 @@ public class AccountServiceImpl implements IAccountService
 		}
 		else
 		{
-			amt = account.getAmount() - amount;
-			account.setAmount(amt);
-			accountDao.save(account);
+			System.out.println("Enter amount");
+			BigDecimal amount = sc.nextBigDecimal();
 			Bank bank = account.getBank();
-			double bankAmt = bank.getAmount() - amount;
-			bank.setAmount(bankAmt);
-			bankService.updateAmount(bank);
+			if(amount.compareTo(BigDecimal.ZERO) > 0)
+			{
+				if(amount.compareTo(bank.getAmount()) == -1)
+				{
+					account.setAmount(account.getAmount().subtract(amount));
+					bank.setAmount(bank.getAmount().subtract(amount));
+					bankService.updateAmount(bank);
+					accountDao.save(account);
+					transaction.setAccount(account);
+					transaction.setCustomer(account.getCustomer());
+					transaction.setAmount(amount);
+					transaction.setTransactionType("Debited");
+					transactionService.createTransaction(transaction);
+					System.out.println(transaction.toString());
+					logger.info("amount is withdrawn successfully");
+					return "amount is withdrawn";
+				}
+				else
+				{
+					logger.error("Insufficient amount");
+					throw new BankException("Amount is not sufficient in bank");
+				}
+			}
+			else
+			{
+				logger.error("Invalid amount");
+				throw new BankException("Invalid amount requested");
+			}
 		}
-		
-		return amt;
 	}
 
 

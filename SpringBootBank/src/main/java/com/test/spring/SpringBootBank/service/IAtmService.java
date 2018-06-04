@@ -10,7 +10,7 @@ public interface IAtmService
 	
 	public ATM getATMDetails(long atmId) throws BankException;
 	
-	public double addMoney(long atmId) throws BankException;
+	public String addMoney(long atmId) throws BankException;
 	
-	public double withdrawMoney(long atmId) throws BankException;
+	public String withdrawMoney(long atmId) throws BankException;
 }

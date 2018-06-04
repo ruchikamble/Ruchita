@@ -1,5 +1,7 @@
 package com.test.spring.SpringBootBank.pojo;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ public class Transaction
 	private long transactionId;
 	private Customer customer;
 	private Account account;
-	private double amount;
+	private BigDecimal amount;
 	private String transactionType;
 	
 	public Transaction() { }
@@ -28,7 +30,7 @@ public class Transaction
 	 * @param amount
 	 * @param transactionType
 	 */
-	public Transaction(long transactionId, Customer customer, Account account, double amount, String transactionType) {
+	public Transaction(long transactionId, Customer customer, Account account, BigDecimal amount, String transactionType) {
 		super();
 		this.transactionId = transactionId;
 		this.customer = customer;
@@ -92,14 +94,14 @@ public class Transaction
 	 * @return the amount
 	 */
 	@Column(name = "amount")
-	public double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 

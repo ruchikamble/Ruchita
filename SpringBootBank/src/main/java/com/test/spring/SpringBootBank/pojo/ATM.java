@@ -1,5 +1,7 @@
 package com.test.spring.SpringBootBank.pojo;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,7 @@ import javax.persistence.Table;
 public class ATM 
 {
 	private long atmID;
-	private double amount;
+	private BigDecimal amount;
 	
 	private Bank bank;
 	
@@ -26,7 +28,7 @@ public class ATM
 	 * @param money
 	 * @param bank
 	 */
-	public ATM(long atmID, double amount, Bank bank) {
+	public ATM(long atmID, BigDecimal amount, Bank bank) {
 		super();
 		this.atmID = atmID;
 		this.amount = amount;
@@ -57,14 +59,14 @@ public class ATM
 	 */
 	
 	@Column(name = "amount")
-	public double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 

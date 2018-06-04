@@ -52,15 +52,16 @@ public class AccountController
 	@GetMapping(value = "/depositAmt/{accId}")
 	public ResponseEntity<?> depositAmount(@PathVariable long accId) throws BankException 
 	{
-		System.out.println("Enter the amount");
+		String message =  accountService.depositAmount(accId);
 		
-		double amount = accountService.depositAmount(accId, sc.nextDouble());
-		 
-		if(amount == 0)
-		{
-			logger.error("Amount is not deposited");
-		}
+		return new ResponseEntity<String>(message, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/withdrawAmt/{accId}")
+	public ResponseEntity<?> withdrawAmount(@PathVariable long accId) throws BankException 
+	{
+		String message =  accountService.withdrawAmount(accId);
 		
-		return new ResponseEntity<String>("Amount is deposited", HttpStatus.OK);
+		return new ResponseEntity<String>(message, HttpStatus.OK);
 	}
 }

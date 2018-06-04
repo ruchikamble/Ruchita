@@ -10,7 +10,7 @@ public interface IAccountService
 	
 	public Account getAccount(long accId) throws BankException;
 	
-	public double depositAmount(long accId, double amount) throws BankException;
+	public String depositAmount(long accId) throws BankException;
 	
-	public double withdrawAmount(long accId, double amount) throws BankException; 
+	public String withdrawAmount(long accId) throws BankException; 
 }
