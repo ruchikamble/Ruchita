@@ -61,7 +61,7 @@ public class AccountServiceImpl implements IAccountService
 	
 	
 	@Override
-	public String depositAmount(long accId) throws BankException 
+	public Account depositAmount(long accId,BigDecimal amount) throws BankException 
 	{
 		Account account = null;
 		Transaction transaction = new Transaction();
@@ -73,23 +73,21 @@ public class AccountServiceImpl implements IAccountService
 		}
 		else
 		{
-			System.out.println("Enter amount");
-			BigDecimal amount = sc.nextBigDecimal();
+			
 			Bank bank = account.getBank();
 			if(amount.compareTo(BigDecimal.ZERO) > 0)
 			{
-					account.setAmount(account.getAmount().add(amount));
-					bank.setAmount(bank.getAmount().subtract(amount));
-					bankService.updateAmount(bank);
-					accountDao.save(account);
-					transaction.setAccount(account);
-					transaction.setCustomer(account.getCustomer());
-					transaction.setAmount(amount);
-					transaction.setTransactionType("Credited");
-					transactionService.createTransaction(transaction);
-					logger.info("amount is deposited successfully");
-					return "amount is deposited";
-				}
+				account.setAmount(account.getAmount().add(amount));
+				bank.setAmount(bank.getAmount().subtract(amount));
+				bankService.updateAmount(bank);
+				transaction.setAccount(account);
+				transaction.setCustomer(account.getCustomer());
+				transaction.setAmount(amount);
+				transaction.setTransactionType("Credited");
+				transactionService.createTransaction(transaction);
+				logger.info("amount is deposited successfully");
+				return accountDao.save(account);
+			}
 				
 			else
 			{

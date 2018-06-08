@@ -78,7 +78,7 @@ public class Transaction
 	 */
 	
 	@ManyToOne
-	@JoinColumn(name = "bankId", nullable = false)
+	@JoinColumn(name = "accountId", nullable = false)
 	public Account getAccount() {
 		return account;
 	}

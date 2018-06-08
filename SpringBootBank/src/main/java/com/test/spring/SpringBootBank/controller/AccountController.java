@@ -1,5 +1,6 @@
 package com.test.spring.SpringBootBank.controller;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -29,14 +30,6 @@ public class AccountController
 	@Autowired
 	private IAccountService accountService;
 	
-	@Autowired
-	private IBankService bankService;
-	
-	@Autowired
-	private ICustomerService custService;
-	
-	private Scanner sc= new Scanner(System.in);
-	
 	@PostMapping(value = "/createAccount")
 	public ResponseEntity<?> createAccount(@RequestBody AccountBankCustWrapper wrapper) throws BankException
 	{
@@ -49,12 +42,12 @@ public class AccountController
 		
 	}
 	
-	@GetMapping(value = "/depositAmt/{accId}")
-	public ResponseEntity<?> depositAmount(@PathVariable long accId) throws BankException 
+	@GetMapping(value = "/depositAmt/{accId}/{amount}")
+	public ResponseEntity<?> depositAmount(@PathVariable long accId, @PathVariable BigDecimal amount) throws BankException 
 	{
-		String message =  accountService.depositAmount(accId);
+			Account account =  accountService.depositAmount(accId, amount);
 		
-		return new ResponseEntity<String>(message, HttpStatus.OK);
+			return new ResponseEntity<Account>(account, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/withdrawAmt/{accId}")
